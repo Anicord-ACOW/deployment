@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: webserver
+  name: anicord-webserver
   annotations:
     longhorn.io/default-storage-class: "true"
   labels:
@@ -14,7 +14,7 @@ apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
   name: "allow-namespace"
-  namespace: webserver
+  namespace: anicord-webserver
 spec:
   endpointSelector:
     matchLabels:
