@@ -28,13 +28,13 @@ sops --encrypt --in-place webserver/secrets.yaml
 ```
 
 ### 3. Deploy
-Apply the configuration using Kustomize from the root or this directory:
+Apply the configuration using Kustomize, and apply the secrets separately using SOPS:
 ```bash
-# From the repository root
-kubectl apply -k .
+# 1. Apply the main infrastructure
+kubectl apply -k webserver/
 
-# Or from this directory
-kubectl apply -k .
+# 2. Decrypt and apply the secrets
+sops -d webserver/secrets.yaml | kubectl apply -f -
 ```
 
 ## 🛠️ Components Detail

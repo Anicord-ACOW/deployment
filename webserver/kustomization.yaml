@@ -6,4 +6,3 @@ resources:
   - namespace.yaml
   - mariadb.yaml
   - webserver.yaml
-  - secrets.yaml
