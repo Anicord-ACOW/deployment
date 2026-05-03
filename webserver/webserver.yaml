@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webserver
+  namespace: webserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webserver
+  template:
+    metadata:
+      labels:
+        app: webserver
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+      - name: webserver
+        image: ghcr.io/anicord-acow/webserver:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: DB_HOST
+          value: "mariadb"
+        - name: DB_PORT
+          value: "3306"
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: webserver-secrets
+              key: mariadb-database
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: webserver-secrets
+              key: mariadb-user
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: webserver-secrets
+              key: mariadb-password
+        # Add other environment variables as needed
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webserver
+  namespace: webserver
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 3000
+    nodePort: 13000
+  selector:
+    app: webserver

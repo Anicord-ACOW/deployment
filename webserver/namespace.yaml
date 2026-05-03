@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: webserver
+  annotations:
+    longhorn.io/default-storage-class: "true"
+  labels:
+    longhorn.io/default-storage-class: "true"
+    pod-security.kubernetes.io/enforce: baseline
+
+---
+
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: "allow-namespace"
+  namespace: webserver
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: webserver
+  egress:
+    - toEndpoints:
+        - matchLabels: {} # Allows communication between pods in the same namespace
