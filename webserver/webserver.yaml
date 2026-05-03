@@ -13,13 +13,15 @@ spec:
       labels:
         app: webserver
     spec:
+      imagePullSecrets:
+      - name: ghcr-pull-secret
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
       containers:
       - name: webserver
-        image: ghcr.io/anicord-acow/webserver:latest
+        image: ghcr.io/anicord-acow/webserver@sha256:0320e3475b431a4523a8597bd636537a68c10ee8ade94840f19e57a1481a0330
         ports:
         - containerPort: 3000
         env:
