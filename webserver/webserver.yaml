@@ -34,7 +34,7 @@ spec:
             secretKeyRef:
               name: webserver-secrets
               key: REDIS
-        - name: BETTER_AUTH_SECRET
+        - name: NEXTAUTH_SECRET
           valueFrom:
             secretKeyRef:
               name: webserver-secrets
