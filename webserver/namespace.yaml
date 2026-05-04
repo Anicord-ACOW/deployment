@@ -3,9 +3,8 @@ kind: Namespace
 metadata:
   name: anicord-webserver
   annotations:
-    longhorn.io/default-storage-class: "true"
+    kustomize.toolkit.fluxcd.io/prune: disabled
   labels:
-    longhorn.io/default-storage-class: "true"
     pod-security.kubernetes.io/enforce: baseline
 
 ---

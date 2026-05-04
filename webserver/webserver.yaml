@@ -24,31 +24,31 @@ spec:
         ports:
         - containerPort: 3000
         env:
-        - name: DB_HOST
-          value: "mariadb"
-        - name: DB_PORT
-          value: "3306"
-        - name: DB_NAME
+        - name: MYSQL
           valueFrom:
             secretKeyRef:
               name: webserver-secrets
-              key: mariadb-database
-        - name: DB_USER
-          valueFrom:
-            secretKeyRef:
-              name: webserver-secrets
-              key: mariadb-user
-        - name: DB_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: webserver-secrets
-              key: mariadb-password
+              key: MYSQL
         - name: BETTER_AUTH_SECRET
           valueFrom:
             secretKeyRef:
               name: webserver-secrets
               key: BETTER_AUTH_SECRET
-        # Add other environment variables as needed
+        - name: DISCORD_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: webserver-secrets
+              key: DISCORD_CLIENT_ID
+        - name: DISCORD_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: webserver-secrets
+              key: DISCORD_CLIENT_SECRET
+        - name: REDIS_URL
+          valueFrom:
+            secretKeyRef:
+              name: webserver-secrets
+              key: REDIS_URL
 ---
 apiVersion: v1
 kind: Service
