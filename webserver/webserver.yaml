@@ -43,6 +43,11 @@ spec:
             secretKeyRef:
               name: webserver-secrets
               key: mariadb-password
+        - name: BETTER_AUTH_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: webserver-secrets
+              key: BETTER_AUTH_SECRET
         # Add other environment variables as needed
 ---
 apiVersion: v1
