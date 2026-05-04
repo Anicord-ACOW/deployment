@@ -69,6 +69,9 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mariadb-pvc
+  annotations:
+    longhorn.io/default-storage-class: "true"
+    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   accessModes:
     - ReadWriteOnce

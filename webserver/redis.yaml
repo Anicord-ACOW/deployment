@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+spec:
+  selector:
+    matchLabels:
+      app: redis
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+      - name: redis
+        image: redis:7-alpine
+        command: ["redis-server", "--requirepass", "$(REDIS_PASSWORD)"]
+        ports:
+        - containerPort: 6379
+        env:
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: webserver-secrets
+              key: redis-password
+        volumeMounts:
+        - name: redis-storage
+          mountPath: /data
+      volumes:
+      - name: redis-storage
+        persistentVolumeClaim:
+          claimName: redis-pvc
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+spec:
+  ports:
+  - port: 6379
+  selector:
+    app: redis
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: redis-pvc
+  annotations:
+    longhorn.io/default-storage-class: "true"
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: longhorn

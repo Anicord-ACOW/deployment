@@ -7,6 +7,7 @@ This directory contains the Kubernetes manifests for the Anicord Webserver and i
 The application is composed of two main components:
 - **Node.js Webserver**: The core application logic.
 - **MariaDB**: The persistent database backend.
+- **Redis**: In-memory data structure store used as a cache between the webserver and database.
 
 ### Key Features
 - **Security**: Runs as non-root (UID 1000) and enforced by Kubernetes Pod Security baseline.
@@ -43,6 +44,7 @@ sops -d webserver/secrets.yaml | kubectl apply -f -
 | :--- | :--- | :--- | :--- |
 | **Webserver** | `ghcr.io/anicord-acow/webserver` | `80` (NodePort `13000`) | N/A |
 | **MariaDB** | `mariadb` | `3306` | `4Gi` (Longhorn) |
+| **Redis** | `redis:7-alpine` | `6379` | `1Gi` (Longhorn) |
 
 ## 🛡️ Network Policy
 The deployment includes a `CiliumNetworkPolicy` that restricts traffic to ensure safe communication between the webserver and its database.
