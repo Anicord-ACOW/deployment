@@ -49,6 +49,11 @@ spec:
             secretKeyRef:
               name: webserver-secrets
               key: DISCORD_CLIENT_SECRET
+        - name: DISCORD_SERVER_ID
+          valueFrom:
+            secretKeyRef:
+              name: webserver-secrets
+              key: DISCORD_SERVER_ID
         - name: JWT_PRIVATE_KEY_PATH
           valueFrom:
             secretKeyRef:
