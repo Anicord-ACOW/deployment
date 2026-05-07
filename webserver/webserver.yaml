@@ -54,7 +54,17 @@ spec:
             secretKeyRef:
               name: webserver-secrets
               key: DISCORD_CLIENT_SECRET
+        volumeMounts:
+          - name: keys
+            mountPath: /app/keys
+            readOnly: true
+      volumes:
+        - name: keys
+          secret:
+            secretName: keys
+
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
