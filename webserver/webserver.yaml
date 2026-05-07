@@ -59,6 +59,11 @@ spec:
             secretKeyRef:
               name: webserver-secrets
               key: JWT_PUBLIC_KEY_PATH
+        - name: COOKIE_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: webserver-secrets
+              key: COOKIE_SECRET
         volumeMounts:
           - name: keys
             mountPath: /app/keys
