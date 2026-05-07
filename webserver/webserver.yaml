@@ -34,16 +34,11 @@ spec:
             secretKeyRef:
               name: webserver-secrets
               key: REDIS
-        - name: NEXTAUTH_URL
+        - name: ORIGIN
           valueFrom:
             secretKeyRef:
               name: webserver-secrets
-              key: NEXTAUTH_URL
-        - name: NEXTAUTH_SECRET
-          valueFrom:
-            secretKeyRef:
-              name: webserver-secrets
-              key: NEXTAUTH_SECRET
+              key: ORIGIN
         - name: DISCORD_CLIENT_ID
           valueFrom:
             secretKeyRef:
