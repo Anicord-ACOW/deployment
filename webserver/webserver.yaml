@@ -49,6 +49,16 @@ spec:
             secretKeyRef:
               name: webserver-secrets
               key: DISCORD_CLIENT_SECRET
+        - name: JWT_PRIVATE_KEY_PATH
+          valueFrom:
+            secretKeyRef:
+              name: webserver-secrets
+              key: JWT_PRIVATE_KEY_PATH
+        - name: JWT_PUBLIC_KEY_PATH
+          valueFrom:
+            secretKeyRef:
+              name: webserver-secrets
+              key: JWT_PUBLIC_KEY_PATH
         volumeMounts:
           - name: keys
             mountPath: /app/keys
