@@ -16,8 +16,13 @@ metadata:
   namespace: anicord-webserver
 spec:
   endpointSelector:
-    matchLabels:
-      app.kubernetes.io/name: webserver
+    matchExpressions:
+      - key: app.kubernetes.io/name
+        operator: In
+        values:
+          - webserver
+          - mariadb
+          - redis
   egress:
     - toEndpoints:
         - matchLabels: {} # Allows communication between pods in the same namespace
