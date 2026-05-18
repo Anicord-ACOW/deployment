@@ -23,7 +23,7 @@ spec:
         fsGroup: 1000
       containers:
       - name: webserver
-        image: ghcr.io/anicord-acow/webserver@sha256:5efda6aa2f357a76ef8ce739fa5789a2a72a82f6be034a81f1ff69ce54c19b05
+        image: ghcr.io/anicord-acow/webserver@sha256:25fd4af1851b3eaee932a5afae1081c4dda8f9627183a22407f98b2f81f70c9c
         ports:
         - containerPort: 3000
         env:
