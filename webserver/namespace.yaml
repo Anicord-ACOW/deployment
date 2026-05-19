@@ -20,7 +20,8 @@ spec:
       - key: app.kubernetes.io/name
         operator: In
         values:
-          - webserver
+          - backend
+          - frontend
           - mariadb
           - redis
   egress:

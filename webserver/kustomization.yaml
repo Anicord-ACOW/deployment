@@ -5,6 +5,7 @@ namespace: anicord-webserver
 resources:
   - namespace.yaml
   - mariadb.yaml
-  - webserver.yaml
+  - backend.yaml
+  - frontend.yaml
   - secrets.yaml
   - redis.yaml

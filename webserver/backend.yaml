@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: webserver
+  name: backend
   labels:
-    app.kubernetes.io/name: webserver
+    app.kubernetes.io/name: backend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: webserver
+      app: backend
   template:
     metadata:
       labels:
-        app: webserver
-        app.kubernetes.io/name: webserver
+        app: backend
+        app.kubernetes.io/name: backend
     spec:
       imagePullSecrets:
       - name: ghcr-pull-secret
@@ -22,7 +22,7 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
       containers:
-      - name: webserver
+      - name: backend
         image: ghcr.io/anicord-acow/backend:main
         ports:
         - containerPort: 3000
@@ -86,9 +86,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: webserver
+  name: backend
   labels:
-    app.kubernetes.io/name: webserver
+    app.kubernetes.io/name: backend
 spec:
   type: LoadBalancer
   ports:
@@ -96,4 +96,4 @@ spec:
     targetPort: 3000
     nodePort: 13000
   selector:
-    app: webserver
+    app: backend
