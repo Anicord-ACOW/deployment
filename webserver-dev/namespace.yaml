@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: anicord-webserver
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+  labels:
+    pod-security.kubernetes.io/enforce: baseline
+
+---
+
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: "allow-namespace"
+  namespace: anicord-webserver
+spec:
+  endpointSelector:
+    matchExpressions:
+      - key: app.kubernetes.io/name
+        operator: In
+        values:
+          - backend
+          - frontend
+          - mariadb
+          - redis
+  egress:
+    - toEndpoints:
+        - matchLabels: {} # Allows communication between pods in the same namespace

@@ -1,0 +1,99 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  labels:
+    app.kubernetes.io/name: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+        app.kubernetes.io/name: backend
+    spec:
+      imagePullSecrets:
+      - name: ghcr-pull-secret
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+      - name: backend
+        image: ghcr.io/anicord-acow/backend:dev
+        ports:
+        - containerPort: 3000
+        env:
+        - name: MYSQL
+          valueFrom:
+            secretKeyRef:
+              name: webserver-secrets
+              key: MYSQL
+        - name: REDIS
+          valueFrom:
+            secretKeyRef:
+              name: webserver-secrets
+              key: REDIS
+        - name: ORIGIN
+          valueFrom:
+            secretKeyRef:
+              name: webserver-secrets
+              key: ORIGIN
+        - name: DISCORD_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: webserver-secrets
+              key: DISCORD_CLIENT_ID
+        - name: DISCORD_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: webserver-secrets
+              key: DISCORD_CLIENT_SECRET
+        - name: DISCORD_SERVER_ID
+          valueFrom:
+            secretKeyRef:
+              name: webserver-secrets
+              key: DISCORD_SERVER_ID
+        - name: JWT_PRIVATE_KEY_PATH
+          valueFrom:
+            secretKeyRef:
+              name: webserver-secrets
+              key: JWT_PRIVATE_KEY_PATH
+        - name: JWT_PUBLIC_KEY_PATH
+          valueFrom:
+            secretKeyRef:
+              name: webserver-secrets
+              key: JWT_PUBLIC_KEY_PATH
+        - name: COOKIE_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: webserver-secrets
+              key: COOKIE_SECRET
+        volumeMounts:
+          - name: keys
+            mountPath: /app/keys
+            readOnly: true
+      volumes:
+        - name: keys
+          secret:
+            secretName: keys
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  labels:
+    app.kubernetes.io/name: backend
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 3000
+    nodePort: 13002
+  selector:
+    app: backend
