@@ -15,8 +15,6 @@ spec:
         app: backend
         app.kubernetes.io/name: backend
     spec:
-      imagePullSecrets:
-      - name: ghcr-pull-secret
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
