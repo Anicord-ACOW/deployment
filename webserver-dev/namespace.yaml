@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: anicord-webserver
+  name: anidev-webserver
   annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
   labels:
@@ -13,7 +13,7 @@ apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
   name: "allow-namespace"
-  namespace: anicord-webserver
+  namespace: anidev-webserver
 spec:
   endpointSelector:
     matchExpressions:
