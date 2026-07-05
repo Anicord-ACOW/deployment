@@ -21,7 +21,7 @@ spec:
         fsGroup: 1000
       containers:
       - name: backend
-        image: ghcr.io/anicord-acow/backend@sha256:d7949f967aa6efbe87fce6431cc194768f1088a3d2546e052508eaae92d02fa5
+        image: ghcr.io/anicord-acow/backend@sha256:6465634b94d004e2fc07f598b991bc0f1835e9c8a640ba77ad64d073ed19c05c
         ports:
         - containerPort: 3000
         env:
