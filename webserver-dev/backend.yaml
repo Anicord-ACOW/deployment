@@ -21,7 +21,7 @@ spec:
         fsGroup: 1000
       containers:
       - name: backend
-        image: ghcr.io/anicord-acow/backend@sha256:c67cd4e004109d8e598e604551723b5b47aef36d446a408457f8ec23e6c78150
+        image: ghcr.io/anicord-acow/backend@sha256:4f0b6778d6c066678ddecc230d124f8b5adda89425fd4a0c1cd84ee1bb5a4727
         ports:
         - containerPort: 3000
         env:
@@ -75,6 +75,11 @@ spec:
             secretKeyRef:
               name: webserver-secrets
               key: COOKIE_SECRET
+        - name: COOKIE_DOMAIN
+          valueFrom:
+            secretKeyRef:
+              name: webserver-secrets
+              key: COOKIE_DOMAIN
         volumeMounts:
           - name: keys
             mountPath: /app/keys
