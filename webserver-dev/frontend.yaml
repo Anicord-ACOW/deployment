@@ -25,7 +25,7 @@ spec:
         ports:
         - containerPort: 3000
         env:
-        - name: API_ORIGIN
+        - name: API_URL
           valueFrom:
             secretKeyRef:
               name: webserver-secrets
