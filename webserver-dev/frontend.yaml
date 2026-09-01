@@ -31,7 +31,7 @@ spec:
               name: webserver-secrets
               key: API_ORIGIN
         - name: ORIGIN
-          value: "anidev.cestpaspete.ovh"
+          value: "https://anidev.cestpaspete.ovh"
 ---
 
 apiVersion: v1
