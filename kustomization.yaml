@@ -3,7 +3,7 @@ kind: Kustomization
 
 resources:
   - webserver
-  - webserver-dev
+  #- webserver-dev
   #- discord-bot
   
 
